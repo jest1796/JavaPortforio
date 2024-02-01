@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
+		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>katachi.spring</groupId>
-	<artifactId>JavaPortforio</artifactId>
+	<artifactId>ToDoList</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JavaPortforio</name>
+	<name>ToDoList</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -41,11 +41,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -54,6 +49,52 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.47</version>
+		</dependency>
+		
+		
+<!--		 MyBatis-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<!-- Model Mapper-->
+		<dependency>
+			<groupId>org.modelmapper.extensions</groupId>
+			<artifactId>modelmapper-spring</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<!-- SpringSecurity -->
+		<dependency>
+   			<groupId>org.springframework.boot</groupId>
+   			 <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+<!-- Thymeleaf拡張ライブラリ-->
+		<dependency>
+    		<groupId>org.thymeleaf.extras</groupId>
+    		<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>com.mysql</groupId>
+   			 <artifactId>mysql-connector-j</artifactId>
 		</dependency>
 	</dependencies>
 
