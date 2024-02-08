@@ -14,7 +14,7 @@
 <!--		<span class="navbar-brand" ></span>-->
 <!--	</nav>-->
 	<h1 class="text-success text-center">サブスクリプション管理アプリ</h1>
-	<h1 class="text-primary border-top">ログイン</h1>
+	<h1 class="text-primary text-center border-top">ログイン</h1>
 
 	<div class="container text-center">
 		<div class="col-sm-3"></div>
@@ -34,8 +34,9 @@
 				<input type="text" name="password" class="form-control" />
 				
 			</div>
-			<input type="submit" class="btn btn-primary" />
+			<input type="submit" class="btn btn-primary" value="ログイン"/>
 		</form>
+		<a th:href="@{/signup}">新規ユーザ登録</a>
 
 	</div>
 </body>

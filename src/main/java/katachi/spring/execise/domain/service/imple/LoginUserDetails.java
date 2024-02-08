@@ -5,13 +5,13 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import katachi.spring.execise.domain.model.LoginUser;
+import katachi.spring.execise.domain.model.MUser;
 
 public class LoginUserDetails implements UserDetails {
 
-	private LoginUser loginUser;
+	private MUser loginUser;
 	
-	public LoginUserDetails(LoginUser loginUser) {
+	public LoginUserDetails(MUser loginUser) {
 		this.loginUser = loginUser;
 	}
 	
@@ -27,7 +27,7 @@ public class LoginUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return loginUser.getUsename();
+		return loginUser.getUserName();
 	}
 
 	@Override

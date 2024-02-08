@@ -2,9 +2,14 @@ package katachi.spring.execise.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import katachi.spring.execise.domain.model.LoginUser;
+import katachi.spring.execise.domain.model.MUser;
 
 @Mapper
 public interface UserMapper {
-	public int insertOne(LoginUser loginuser);
+	
+//	ユーザ登録
+	public int signup(MUser user) ;
+	
+//	ログインユーザ取得
+	public MUser findLoginUser(String loginUser); 
 }
