@@ -8,11 +8,11 @@
 <insert id="signup">
 	insert into users_table(
 		user_name
-	   ,password
+	   ,pass
 	   )
 	   values(
-	    #{username}
-	   ,#{pass} 
+	    #{userName}
+	   ,#{password} 
 		)   
 </insert>
 

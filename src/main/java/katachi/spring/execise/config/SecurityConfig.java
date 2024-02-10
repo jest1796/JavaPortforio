@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     
+    @Bean
+	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+		return new MvcRequestMatcher.Builder(introspector);
+	}
     
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,7 +38,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
                 .failureUrl("/login?error")
-                .usernameParameter("user")
+                .usernameParameter("userName")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/index", true)
                 .permitAll()).logout(logout -> logout
@@ -41,6 +47,8 @@ public class SecurityConfig {
 
         http.headers(headers -> headers
                 .frameOptions(FrameOptionsConfig::disable));
+        
+        http.csrf().disable();
 
         return http.build();
     }

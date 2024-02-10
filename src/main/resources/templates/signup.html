@@ -5,32 +5,49 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-
+	<link rel="stylesheet" th:href="@{/css/user/signup.css}">
+	<!--JS読み込み-->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<script th:src="@{/js/user/signup.js}" defer></script>
 	<title>新規ユーザ登録</title>
 </head>
 
 <body>
-	<div class="container">
-  <h2>ユーザ登録</h2>
-  <form>
-    <div class="form-group">
-      <label for="username">ユーザ名:</label>
-      <input type="text" class="form-control" id="username" placeholder="Enter username">
-    </div>
-    <div class="form-group">
-      <label for="password">パスワード:</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password">
-    </div>
-    <div class="btn-group">
-      <button type="submit" class="btn btn-primary">はい</button>
-      <button type="reset" class="btn btn-secondary">やり直し</button>
-    </div>
-  </form>
-</div>
+	<h1 class="text-success text-center">サブスクリプション管理アプリ</h1>
+	<h1 class="text-primary text-center border-top">新規登録</h1>
 
-	
-	<form method="post" th:action="@{/logout}">
-		<button class="btn btn-link pull-right navbar-brand" type="submit">ログアウト</button>
+	<div class="container text-center">
+		<div class="col-sm-3"></div>
+		
+	<form id="signup-form" method="post" action="/signup" class="form-signup w-25 mx-auto" th:object="${signupForm}">
+		<div class="container text-center">
+			<div class="col-sm-3"></div>
+
+			<div class="form-group">
+				<label for="userName">ユーザ名</label>
+				<input type="text" class="form-control" th:field="*{userName}" th:errorclass="is-invalid" />
+				<div class="invalid-feedback" th:errors="*{userName}"></div>
+			</div>
+
+			<div class="form-group">
+				<label for="password">パスワード</label>
+				<input type="text" th:field="*{password}" class="form-control" th:errorclass="is-invalid" />
+				<div class="invalid-feedback" th:errors="*{password}"></div>
+			</div>
+
+			<div class="btn-group">
+				<input type="reset" class="btn bg-warning text-white mr-5" value="クリア">
+				<input type="submit" class="btn btn-primary" value="登録" />
+			</div>
+		</div>
+	</div>
+	</form>
+
+
+
+	<form class="text-center mt-5 " method="post" th:action="@{/logout}">
+		<button class="btn btn-link btn-outline-danger" type="submit">キャンセル</button>
 	</form>
 </body>
 
