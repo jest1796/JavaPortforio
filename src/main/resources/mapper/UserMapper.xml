@@ -8,7 +8,7 @@
 <insert id="signup">
 	insert into users_table(
 		user_name
-	   ,pass
+	   ,password
 	   )
 	   values(
 	    #{userName}

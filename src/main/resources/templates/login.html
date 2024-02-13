@@ -19,7 +19,7 @@
 	<div class="container text-center">
 		<div class="col-sm-3"></div>
 
-		<form id="login-form" method="post" th:action="@{/login}" class="form-login w-25  mx-auto">
+		<form id="login-form" method="post" th:action="@{/login}" class="form-login w-25  mx-auto mt-5">
 
 			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']}!=null"
 			 th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">

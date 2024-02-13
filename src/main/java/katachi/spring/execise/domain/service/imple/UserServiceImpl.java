@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService {
 		return mapper.findLoginUser(userName);
 	}
 
+	@Override
+	public boolean isUsernameDuplicate(String userName) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
 }

@@ -14,6 +14,7 @@ public class LoginUserDetails implements UserDetails {
 	public LoginUserDetails(MUser loginUser) {
 		this.loginUser = loginUser;
 	}
+//	ユーザIDの項目を追加
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

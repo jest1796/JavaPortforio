@@ -29,9 +29,9 @@
 <body>
 	<!-- ナビゲーション -->
 	<nav class="navbar navbar-expand-md border-bottom">
-		<h1 class="text-primary"> 作業一覧</h1>
+		<h1 class="text-primary"> 利用サービス一覧</h1>
 		<div class="ml-auto form-inline">
-			<span class="navbar-text px-3" th:text="'ようこそ　'+${user.familyName} +${user.firstName}+ 'さん'"></span>
+			<span class="navbar-text px-3" th:text="'ようこそ　'+${user.getUsername() + '様'}"></span>
 			<form role="form" id="logout" th:action="@{/logout}" method="post">
 				<button class="btn btn-outline-dark bg-light">ログアウト</button>
 			</form>
@@ -43,11 +43,15 @@
 
 	<!-- コンテナ -->
 	<div class="container">
-
+	<p th:text="${user."
 
 
 		<form class="form-inline py-2 my-lg-0" th:action="@{/listSearch}" method="get">
-			<a class="btn btn-outline-dark bg-light py-2" href="/entry">作業登録</a>
+			<a class="btn btn-outline-dark bg-light py-2" href="/entry">新規サービス登録</a>
+			<div class="mx-auto">
+				<p>今日は、<span th:text="${#dates.format(#dates.createNow(), 'yyyy年M月d日 E曜日')}"></span>です。</p>
+			</div>
+			
 			<div class="ml-auto">
 				<input class="form-control mx-auto" type="search" aria-label="Search" name="searchWord"
 					th:value="${searchWord}">

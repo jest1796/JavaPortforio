@@ -8,12 +8,12 @@ import lombok.Data;
 
 @Data
 public class SignupForm {
-	@NotBlank
+	@NotBlank(groups = ValidGroup1.class)
 	private String userName;
 	
-	@NotBlank
-	@Length(min = 4,max = 100)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
+	@NotBlank(groups = ValidGroup1.class)
+	@Length(min = 4,max = 100,groups = ValidGroup2.class)
+	@Pattern(regexp = "^[a-zA-Z0-9]+$",groups = ValidGroup2.class)
 	private String password;
 	
 	
