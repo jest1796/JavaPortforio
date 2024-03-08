@@ -43,19 +43,13 @@
 
 	<!-- コンテナ -->
 	<div class="container">
-	<p th:text="${user."
+
 
 
 		<form class="form-inline py-2 my-lg-0" th:action="@{/listSearch}" method="get">
-			<a class="btn btn-outline-dark bg-light py-2" href="/entry">新規サービス登録</a>
+			<a class="btn btn-outline-dark bg-primary py-2" href="/addService">新規サービス登録</a>
 			<div class="mx-auto">
 				<p>今日は、<span th:text="${#dates.format(#dates.createNow(), 'yyyy年M月d日 E曜日')}"></span>です。</p>
-			</div>
-			
-			<div class="ml-auto">
-				<input class="form-control mx-auto" type="search" aria-label="Search" name="searchWord"
-					th:value="${searchWord}">
-				<button class="btn  btn-outline-dark bg-light my-2 my-sm-0 text-right" type="submit">検索</button>
 			</div>
 		</form>
 
@@ -63,43 +57,55 @@
 		<table class="table table-striped table-hover table-sm my-2">
 			<thead>
 				<tr>
-					<th scope="col">項目名</th>
-					<th scope="col">担当者</th>
-					<th scope="col">登録日</th>
-					<th scope="col">期限日</th>
-					<th scope="col">完了日</th>
+					<th scope="col">サービス名</th>
+					<th scope="col"> 月額 </th>
+					<th scope="col"> 年額 </th>
+					<th scope="col"> 引落日 </th>
+					<th scope="col">次の引落日まで</th>
 					<th scope="col">操作</th>
 				</tr>
 			</thead>
 
+
+			<p th:text="${user.getUserId()}"></p>
+
 			<tbody>
-				<!--               	th:classappendを使って条件分け　3項演算子-->
-				<tr th:each="item : ${item}" th:classappend="|${((item.finishedDate == null && item.expireDate < #dates.createNow()) ? 'text-danger' : ' ')} 
-                     ${item.finishedDate != null ? 'del' :' ' }|">
+				<tr th:each="item : ${item}">
 
-					<td th:text="${item.itemName}" class="align-middle">
+					<!--サービス名-->
+					<td th:text="${item.servName}" class="align-middle">
 					</td>
 
-					<!--名前-->
-					<td th:text="${item.fullName}" class="align-middle">
+					<!--月額-->
+					<td th:if="${item.pay==1}" th:classappend="${item.pay==1} ? 'align-middle' : ''"><div th:text="${item.fee}+'円'"></div></td>
+					<td block th:if="${item.pay==2}"></td>
+					
+					<!--年額-->
+					<td th:if="${item.pay==2}" th:classappend="${item.pay==2} ? 'align-middle' : ''"><div th:text="${item.fee}+'円'"></div></td>
+					<td block th:if="${item.pay==1}"></td>
+
+
+					<!--引落日-->
+<!--					<td th:text="${item.month}+'月'+${item.day}+'日'" class="align-middle"></td>-->
+					
+					<td block th:if="${item.month==0}" class="align-middle">
+						<div th:text="'毎月'+${item.day}+'日'"></div>
 					</td>
+					
+					<td block th:if="${item.month!=0}" class="align-middle">
+						<div>毎年<br></div>
+						<div th:text="${item.month}+'月'+${item.day}+'日'"></div>
+					</td>
+					
 
-					<!--登録日-->
-					<td th:text="${#dates.format(item.registrationDate,'yyyy-MM-dd')}" class="align-middle"></td>
-
-					<!--期限日-->
-					<td th:text="${#dates.format(item.expireDate,'yyyy-MM-dd')}" class="align-middle"></td>
-
-					<!--完了日-->
-					<td th:text="${#dates.format(item.finishedDate, 'yyyy-MM-dd')}" th:if="${item.finishedDate != null}"
-						class="align-middle"></td>
-					<td class="align-middle" th:text="未" th:if="${item.finishedDate == null}"></td>
+					<!--次回までの日数-->
+					<td th:text="${item.untilDays }+'日'" class="align-middle"></td>
 
 					<td class="align-middle button">
-						<form th:action="@{/completed}" method="post" class="my-sm-1">
-							<button class="btn btn-primary my-0" type="submit" name="completed">完了</button>
-							<input type="hidden" name="itemId" th:value="${item.id}">
-						</form>
+						<!--						<form th:action="@{/completed}" method="post" class="my-sm-1">-->
+						<!--							<button class="btn btn-primary my-0" type="submit" name="completed">完了</button>-->
+						<!--							<input type="hidden" name="itemId" th:value="${item.id}">-->
+						<!--						</form>-->
 
 						<a th:href="@{'/edit/'+${item.id}}" class="btn btn-success my-0">修正</a>
 

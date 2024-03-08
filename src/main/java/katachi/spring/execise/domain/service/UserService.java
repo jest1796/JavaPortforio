@@ -9,5 +9,5 @@ public interface UserService {
 //	ログインユーザ取得
 	public MUser getLoginUser(String userName);
 
-	public boolean isUsernameDuplicate(String userName);
+	
 }

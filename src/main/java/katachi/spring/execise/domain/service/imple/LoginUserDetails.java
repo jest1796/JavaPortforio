@@ -15,7 +15,9 @@ public class LoginUserDetails implements UserDetails {
 		this.loginUser = loginUser;
 	}
 //	ユーザIDの項目を追加
-	
+	public int getUserId() {
+		return loginUser.getUserId();
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

@@ -49,7 +49,7 @@ public class SignupController {
 			 model.addAttribute("signupError", "ユーザー登録に失敗しました");
 	            return "signup";
 		}
-		return "redirect:/login";
+		return "redirect:/index";
 		
 	}
 }

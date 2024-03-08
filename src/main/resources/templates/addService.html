@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>サービス登録</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+		integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- ナビゲーション -->
+	<nav class="navbar navbar-expand-md border-bottom">
+		<h1 class="text-primary">新規サービス登録</h1>
+		<div class="mx-auto">
+			<p>今日は、<span th:text="${#dates.format(#dates.createNow(), 'yyyy年M月d日 E曜日')}"></span>です。</p>
+		</div>
+		<div class=" ml-auto  form-inline">
+			<span class="navbar-text px-3" th:text="'ようこそ　'+${user.getUsername()} + '様'"></span>
+			<form role="form" id="logout" th:action="@{/logout}" method="post">
+				<button class="btn btn-outline-dark bg-light">ログアウト</button>
+			</form>
+		</div>
+	</nav>
+
+	<!-- ナビゲーション ここまで -->
+
+	<!-- コンテナ -->
+	<div class="container">
+		<div class="row my-2 justify-content-center">
+			<div class="col-sm-6 alert alert-info">
+				下記の項目を入力してください
+			</div>
+		</div>
+
+		<!-- 入力フォーム -->
+		<div class="row my-2 justify-content-center">
+			<div class="col-sm-6">
+				<form th:action="@{/addService}" method="post" th:object="${subscData}">
+
+					<label for="item_name">サービス名</label>
+					<input type="text" class="form-control" th:field="*{servName}" th:errorclass="is-invalid">
+					<div class="invalid-feedback" th:errors="*{servName}"></div>
+
+					<div class="input-group pt-5">
+						<label for="pay">料金体系　　</label>
+						<label>
+							<input type="radio" value="1" th:field="*{pay}" th:checked="${subscData.getPay==1}" />月額　
+						</label>
+
+						<label>
+							<input type="radio" value="2" th:field="*{pay}">年額　
+						</label>
+
+						<input type="number" class="form-control" th:field="*{fee}" aria-describedby="basic-addon2" oninput="convertToHalfWidth(this)"
+							th:errorclass="is-invalid">
+						
+						<div class="input-group-append">
+							<span class="input-group-text">円</span>
+						</div>
+						<div class="invalid-feedback" th:errors="*{fee}"></div>
+						
+						<input type="hidden" name="day" th:value="1">
+
+					</div>
+
+					<input type="submit" value="次へ" class="mt-5 btn btn-lg btn-primary">
+					<a href="/index" class="mt-5 ml-5  btn btn-sm btn-outline-primary">キャンセル</a>
+				</form>
+			</div>
+		</div>
+		<!-- 入力フォーム ここまで -->
+
+	</div>
+	<!-- コンテナ ここまで -->
+
+
+
+	<!-- 必要なJavascriptを読み込む -->
+	<script>
+		function convertToHalfWidth(inputField) {
+			const fullwidthValue = inputField.value;
+			const halfwidthValue = fullwidthValue.replace(/[０-９]/g, (char) => {
+				return String.fromCharCode(char.charCodeAt(0) - 65248);
+			});
+			inputField.value = halfwidthValue;
+		}
+	</script>
+	
+</body>
+
+</html>
