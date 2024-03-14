@@ -1,5 +1,7 @@
 package katachi.spring.execise.form;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -34,4 +36,6 @@ public class SubscData {
 	private int day;				//支払日//
 	
 	private int untilDays;			//次回引き落としまでの日数//
+	
+	private Date registDay;		//登録日//
 }

@@ -14,15 +14,6 @@
 			display: inline-block;
 		}
 
-		/* 打消し線を入れる */
-		tr.del>td {
-			text-decoration: line-through;
-		}
-
-		/* ボタンのセルは打消し線を入れない */
-		tr.del>td.button {
-			text-decoration: none;
-		}
 	</style>
 </head>
 
@@ -62,6 +53,7 @@
 					<th scope="col"> 年額 </th>
 					<th scope="col"> 引落日 </th>
 					<th scope="col">次の引落日まで</th>
+					<th scope="col">登録日</th>
 					<th scope="col">操作</th>
 				</tr>
 			</thead>
@@ -77,38 +69,35 @@
 					</td>
 
 					<!--月額-->
-					<td th:if="${item.pay==1}" th:classappend="${item.pay==1} ? 'align-middle' : ''"><div th:text="${item.fee}+'円'"></div></td>
+					<td th:if="${item.pay==1}" th:classappend="${item.pay==1} ? 'align-middle' : ''">
+						<div th:text="${item.fee}+'円'"></div>
+					</td>
 					<td block th:if="${item.pay==2}"></td>
-					
+
 					<!--年額-->
-					<td th:if="${item.pay==2}" th:classappend="${item.pay==2} ? 'align-middle' : ''"><div th:text="${item.fee}+'円'"></div></td>
+					<td th:if="${item.pay==2}" th:classappend="${item.pay==2} ? 'align-middle' : ''">
+						<div th:text="${item.fee}+'円'"></div>
+					</td>
 					<td block th:if="${item.pay==1}"></td>
 
-
-					<!--引落日-->
-<!--					<td th:text="${item.month}+'月'+${item.day}+'日'" class="align-middle"></td>-->
-					
 					<td block th:if="${item.month==0}" class="align-middle">
 						<div th:text="'毎月'+${item.day}+'日'"></div>
 					</td>
-					
+
 					<td block th:if="${item.month!=0}" class="align-middle">
 						<div>毎年<br></div>
 						<div th:text="${item.month}+'月'+${item.day}+'日'"></div>
 					</td>
-					
 
 					<!--次回までの日数-->
 					<td th:text="${item.untilDays }+'日'" class="align-middle"></td>
-
+					
+<!--					登録日-->
+					<td th:text="${item.registDay}" class="align-middle">
+					</td>
+					
 					<td class="align-middle button">
-						<!--						<form th:action="@{/completed}" method="post" class="my-sm-1">-->
-						<!--							<button class="btn btn-primary my-0" type="submit" name="completed">完了</button>-->
-						<!--							<input type="hidden" name="itemId" th:value="${item.id}">-->
-						<!--						</form>-->
-
 						<a th:href="@{'/edit/'+${item.id}}" class="btn btn-success my-0">修正</a>
-
 						<a th:href="@{'/delete/'+${item.id}}" class="btn btn-danger my-0">削除</a>
 					</td>
 
@@ -118,22 +107,8 @@
 
 		</table>
 
-		<!-- 検索のとき、戻るボタンを表示する -->
-		<th:block th:if="${searchWord !=null}">
-			<a class="btn btn-primary my-0" type="button" href="/todoList">戻る </a>
-
-		</th:block>
-
 	</div>
-	<!-- コンテナ ここまで -->
-
-	<!--	 必要なJavascriptを読み込む -->
-	<!--	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"-->
-	<!--		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"-->
-	<!--		crossorigin="anonymous"></script>-->
-	<!--	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"-->
-	<!--		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"-->
-	<!--		crossorigin="anonymous"></script>-->
+	
 </body>
 
 </html>

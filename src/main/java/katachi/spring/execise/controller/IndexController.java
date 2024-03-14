@@ -22,20 +22,24 @@ public class IndexController {
 
 	@Autowired
 	UserService userService;
+	
 	@GetMapping("/index")
 	public String getLogin(@AuthenticationPrincipal LoginUserDetails user,Model model) {
 		
 //		ログインユーザのデータ登録
 		model.addAttribute("user", user);
 		
-		
 //		利用サービス一覧情報取得
 		List<Item> item = itemService.getItem(user.getUserId());	
-		
 		
 //		一覧表データ登録
 		model.addAttribute("item", item);
 		System.out.println(item);
+		
+//		untilDaysをSQLに登録（更新）
+//		itemService.updateUntilDays(((Item) item).getId());
+		
+		
 		return "index";
 		
 	}

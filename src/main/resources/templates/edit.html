@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>サービス登録</title>
+	<title>サービス内容編集</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
 		integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
@@ -14,7 +14,7 @@
 <body>
 	<!-- ナビゲーション -->
 	<nav class="navbar navbar-expand-md border-bottom">
-		<h1 class="text-primary">新規サービス登録</h1>
+		<h1 class="text-primary">サービス内容編集</h1>
 		<div class="mx-auto">
 			<p>今日は、<span th:text="${#dates.format(#dates.createNow(), 'yyyy年M月d日 E曜日')}"></span>です。</p>
 		</div>
@@ -39,16 +39,19 @@
 		<!-- 入力フォーム -->
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
-				<form th:action="@{/addService}" method="post" th:object="${subscData}">
+				<form th:action="@{/edit}" method="post" th:object="${data}">
 
 					<label for="item_name">サービス名</label>
+					
+					<input type="hidden"  th:field="*{id}">
+					
 					<input type="text" class="form-control" th:field="*{servName}" th:errorclass="is-invalid">
 					<div class="invalid-feedback" th:errors="*{servName}"></div>
 
 					<div class="input-group pt-5">
 						<label for="pay">料金体系　　</label>
 						<label>
-							<input type="radio" value="1" th:field="*{pay}" th:checked="${subscData.getPay==1}" />月額　
+							<input type="radio" value="1" th:field="*{pay}" />月額　
 						</label>
 
 						<label>
@@ -66,9 +69,28 @@
 						<input type="hidden" name="day" th:value="1">
 
 					</div>
+					
+					<div class="pt-5 h5 row">
+						<label>現在の支払日：　　　　</label>
 
-					<input type="submit" value="引落日の入力へ" class="mt-5 btn btn-lg btn-primary">
-					<input type="reset" class="mt-5 ml-4 btn btn-outline-danger" value="入力内容をクリア">
+						<div th:if="${data.getMonth} == 0">
+							<p>毎月　</p>
+						</div>
+						
+						<div th:unless="${data.getMonth} == 0" class="row mr-1">
+							<p>毎年　</p>
+							<p th:text="${data.getMonth}"></p>
+							<p>　月　</p>
+						</div>
+						
+						<p th:text="${data.getDay}"></p>
+						<input type="hidden" name="month" th:value="${data.getMonth}">
+						<input type="hidden" name="day" th:value="${data.getDay}">
+						<p>　日　</p>
+
+					</div>
+
+					<input type="submit" value="編集を続ける" class="mt-5 btn btn-lg btn-primary">
 					<a href="/index" class="mt-5 ml-5  btn btn-sm btn-outline-primary">キャンセル</a>
 				</form>
 			</div>

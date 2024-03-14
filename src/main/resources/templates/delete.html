@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>サービス登録　月払い</title>
+	<title>サービス項目削除</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
 		integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
@@ -14,7 +14,7 @@
 <body>
 	<!-- ナビゲーション -->
 	<nav class="navbar navbar-expand-md border-bottom">
-		<h1 class="text-primary">支払い日（月払い）</h1>
+		<h1 class="text-primary">削除内容確認</h1>
 		<div class="mx-auto">
 			<p>今日は、<span th:text="${#dates.format(#dates.createNow(), 'yyyy年M月d日 E曜日')}"></span>です。</p>
 		</div>
@@ -31,62 +31,64 @@
 	<!-- コンテナ -->
 	<div class="container">
 		<div class="row my-2 justify-content-center">
-			<div class="col-sm-6 alert alert-info">
-				支払い日を入力してください
-			</div>
+			
+				<h2 class="mt-3 text-danger">以下の内容を削除します</h2>
+			
 		</div>
-
+		<p th:text="${user.getUserId()}"></p>
 		<!-- 入力フォーム -->
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
-				<form th:action="@{/payMonth}" method="post" th:object="${subscData}">
+				<form th:action="@{/delete}" method="post" th:object="${subscData}">
+					<!--						IDをsubscDataに入れる-->
+					<input type="hidden" name="id" th:value="${data.getId}">
+					<!--					ユーザIDをSubscDataに入れる-->
+					<input type="hidden" name="userId" th:value="${user.getUserId()}">
+
 					<div class="mt-2 row h5">
 						<p>サービス名：　　　</p>
-						<p th:text="${inputData.getServName}"></p>
-						<input type="hidden" name="servName" th:value="${inputData.getServName}">
+						<p th:text="${data.getServName}"></p>
+						<input type="hidden" name="servName" th:value="${data.getServName}">
 					</div>
 
 					<div class="pt-5 h5 row">
-						<label for="pay">料金体系：　　</label>
-						<p>月額　</p>
-						<p th:text="${inputData.getFee+'　円'}"></p>
-						<input type="hidden" name="fee" th:value="${inputData.getFee}">
-						<input type="hidden" name="pay" th:value="${inputData.getPay}">
+						<label for="pay">料金体系：　　　</label>
+						<p>年額　</p>
+						<p th:text="${data.getFee +'　円'}"></p>
+						<input type="hidden" name="fee" th:value="${data.getFee}">
+						<input type="hidden" name="pay" th:value="${data.getPay}">
 					</div>
 
 					<div class="pt-5 h5 row">
-						<label>支払日：　</label>
+						<label>支払日：　　　　</label>
 
-						<p>毎月　</p>
-						<input class="col-md-2 h6" type="number"  value=""  min="1" max="31" oninput="convertToHalfWidth(this)"
-							th:field="*{day}" th:errorclass="is-invalid"  onfocus="this.value=''" />
+						<div th:if="${data.getMonth} == 0">
+							<p>毎月　</p>
+						</div>
+
+						<div th:unless="${data.getMonth} == 0" class="row mr-1">
+							<p>毎年　</p>
+							<p th:text="${data.getMonth}"></p>
+							<p>　月　</p>
+						</div>
+
+						<p th:text="${data.getDay}"></p>
+						<input type="hidden" name="month" th:value="${data.getMonth}">
+						<input type="hidden" name="day" th:value="${data.getDay}">
 						<p>　日　</p>
-						<div class="invalid-feedback" th:errors="*{day}"></div>
 					</div>
 
-					<input type="submit" value="確認画面へ" class="mt-5 btn btn-lg btn-primary">
-					<a href="/index" class="mt-5 ml-5  btn btn-sm btn-outline-primary">キャンセル（トップページへ）</a>
-					
+					<input type="submit" value="はい、削除します" class="mt-5 btn btn-lg btn-danger">
+					<a href="/index" class="mt-5 ml-5  btn btn-sm btn-outline-primary">いいえ、しません<br>(トップページへ戻ります)</a>
 				</form>
 			</div>
 		</div>
 		<!-- 入力フォーム ここまで -->
+
 	</div>
 	<!-- コンテナ ここまで -->
 
 
-
-	<!-- 必要なJavascriptを読み込む -->
-	<script>
-		function convertToHalfWidth(inputField) {
-			const fullwidthValue = inputField.value;
-			const halfwidthValue = fullwidthValue.replace(/[０-９]/g, (char) => {
-				return String.fromCharCode(char.charCodeAt(0) - 65248);
-			});
-			inputField.value = halfwidthValue;
-		}
-	</script>
-	
 </body>
 
-</html>
+</html>>

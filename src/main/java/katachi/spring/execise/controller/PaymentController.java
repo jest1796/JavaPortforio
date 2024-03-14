@@ -26,8 +26,8 @@ public class PaymentController {
 			@ModelAttribute SubscData data) {
 
 		model.addAttribute("user", user);
-		data = (SubscData) session.getAttribute("data");
-		model.addAttribute("inputData", data);
+		SubscData inputData = (SubscData) session.getAttribute("data");
+		model.addAttribute("inputData",inputData);
 		return "payMonth";
 
 	}
@@ -41,7 +41,8 @@ public class PaymentController {
 		return getPayMonth(user, model, data);
 		}
 		
-		return "check";
+		session.setAttribute("data", data);
+		return "redirect:editConfirm";
 
 	}
 
@@ -65,11 +66,10 @@ public class PaymentController {
 		if(bindingResult.hasErrors()) {
 			return getPayYear(user, model, data);
 		}
-				
-		System.out.println(data);
-		System.out.println(data.getMonth());
-		System.out.println(data.getDay());
-		return "check";
+		
+		session.setAttribute("data", data);
+		
+		return "redirect:editConfirm";
 
 	}
 }
