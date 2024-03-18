@@ -59,6 +59,7 @@ public class ConfirmController {
 		
 	}
 	
+//	編集内容の確認画面表示
 	@GetMapping("/editConfirm")
 	public String getEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscData data) {
