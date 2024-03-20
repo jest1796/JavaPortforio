@@ -42,7 +42,7 @@
 				<form th:action="@{/addService}" method="post" th:object="${subscData}">
 
 					<label for="item_name">サービス名</label>
-					<input type="text" class="form-control" th:field="*{servName}" th:errorclass="is-invalid">
+					<input type="text" class="form-control" name="servName" id="servName" th:errorclass="is-invalid">
 					<div class="invalid-feedback" th:errors="*{servName}"></div>
 
 					<div class="input-group pt-5">
@@ -55,8 +55,8 @@
 							<input type="radio" value="2" th:field="*{pay}">年額　
 						</label>
 
-						<input type="number" class="form-control" th:field="*{fee}" aria-describedby="basic-addon2" oninput="convertToHalfWidth(this)"
-							th:errorclass="is-invalid">
+						<input type="number" class="form-control" id="fee" name="fee" aria-describedby="basic-addon2" oninput="convertToHalfWidth(this)"
+							th:value="金額を入力してください"  th:errorclass="is-invalid">
 						
 						<div class="input-group-append">
 							<span class="input-group-text">円</span>

@@ -10,6 +10,13 @@
 	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
 	<script th:src="@{/js/user/signup.js}" defer></script>
+	<style>
+		p,
+		small {
+			margin: 0;
+			/* 行間をゼロに設定 */
+		}
+	</style>
 	<title>新規ユーザ登録</title>
 </head>
 
@@ -20,7 +27,7 @@
 	<div class="container text-center">
 		<div class="col-sm-3"></div>
 
-		<form id="signup-form" method="post" action="/signup" class="form-signup w-25 mx-auto mt-5"
+		<form id="signup-form" method="post" action="/signup" class="form-signup  mx-auto mt-5" style="width: 35%"
 			th:object="${signupForm}">
 			<div class="container text-center">
 				<div class="col-sm-3"></div>
@@ -30,19 +37,25 @@
 					<input type="text" class="form-control" th:field="*{userName}" th:errorclass="is-invalid" />
 					<div class="invalid-feedback" th:errors="*{userName}"></div>
 					<div th:if="${signupError}">
-						<div th:text="${signupError}"></div>
+
+
+						<div class="text-danger">
+							<p th:text="${signupError}"></p>
+							<small>他のユーザ名でお試しください</small>
+						</div>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="password">パスワード</label>
-					<input type="text" th:field="*{password}" class="form-control" th:errorclass="is-invalid" />
-					<p>パスワードは4～16文字の半角英数字で入力してください</p>
+					<input type="text" th:field="*{password}" class="form-control" placeholder="4～16文字の半角英数字で入力してください"
+						th:errorclass="is-invalid" />
+
 					<div class="invalid-feedback" th:errors="*{password}"></div>
 				</div>
 
 				<div class="btn-group">
-<!--					<input type="reset" class="btn bg-warning text-white mr-5" value="クリア">-->
+
 					<a class="btn bg-warning text-white mr-5" href="signup">クリア</a>
 					<input type="submit" class="btn btn-primary" value="登録" />
 				</div>

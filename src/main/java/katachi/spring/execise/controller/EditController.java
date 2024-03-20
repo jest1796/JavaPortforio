@@ -42,7 +42,7 @@ public class EditController {
 
 		//修正画面のデータをDBから取得
 		Item editItem = itemService.findOne(id);
-		System.out.println(editItem);
+		
 		//ログインユーザ情報収納
 		model.addAttribute("user", user);
 
@@ -89,11 +89,11 @@ public class EditController {
 		model.addAttribute("user", user);
 		SubscData inputData = (SubscData) session.getAttribute("data");
 		model.addAttribute("inputData",inputData);
-		System.out.println("日にち入力"+inputData);
+		
 		return "editPayMonth";
 	}
 	
-	//月払いの	編集日にち処理
+	//月払いの編集日にち処理
 	@PostMapping("/editPayMonth")
 	public String postPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			 @Validated @ModelAttribute SubscData data,BindingResult bindingResult,boolean dateError) {
@@ -133,8 +133,8 @@ public class EditController {
 		int month = data.getMonth();  //入力された月//
 		int day = data.getDay();	   //入力された日//
 		
+//		無効な月日だった場合
 		if (!isValidDate(month, day)) {
-			System.out.println("無効な日付です");
 			dateError = true;	//trueを入れてgetEditPayYearに戻すことでエラーメッセージ表示させる
             return getEditPayYear(user, model, data,dateError);  
         }
@@ -144,7 +144,7 @@ public class EditController {
 		}
 		
 		session.setAttribute("data", data);
-		System.out.println(data);
+		
 		return "redirect:editConfirm";
 
 	}

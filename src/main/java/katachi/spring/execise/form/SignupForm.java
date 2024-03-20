@@ -15,7 +15,7 @@ public class SignupForm {
 	
 //	パスワード
 	@NotBlank(groups = ValidGroup1.class)
-	@Length(min = 4,max = 100,groups = ValidGroup2.class)
+	@Length(min = 4,max = 16,groups = ValidGroup2.class)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$",groups = ValidGroup2.class)
 	private String password;
 	

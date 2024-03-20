@@ -88,7 +88,7 @@ public class PaymentController {
 		}
 		
 		session.setAttribute("data", data);
-		System.out.println(data);
+		
 		return "redirect:confirm";
 
 	}

@@ -34,11 +34,6 @@ public class IndexController {
 		
 //		一覧表データ登録
 		model.addAttribute("item", item);
-		System.out.println(item);
-		
-//		untilDaysをSQLに登録（更新）
-//		itemService.updateUntilDays(((Item) item).getId());
-		
 		
 		return "index";
 		

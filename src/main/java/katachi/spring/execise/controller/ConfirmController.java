@@ -31,6 +31,7 @@ public class ConfirmController {
 	@Autowired
 	ModelMapper modelMapper;
 	
+//	登録内容確認画面表示
 	@GetMapping("/confirm")
 	public String getConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscData data) {
@@ -43,6 +44,7 @@ public class ConfirmController {
 		
 	}
 	
+//	登録内容DBに書き込み実行
 	@PostMapping("/confirm")
 	public String postConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscData data,Item item) {
@@ -71,6 +73,8 @@ public class ConfirmController {
 		return "editConfirm";
 		
 	}
+	
+//	編集後の内容をDBに書き込み実行
 	@PostMapping("/editConfirm")
 	public String postEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscData data,Item item) {

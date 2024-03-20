@@ -15,7 +15,7 @@ public class SubscData {
 	private Integer id;			//	予定項目のID番号//
 	private int userId;			//ユーザID//
 	
-	@NotBlank(message="サービス名を入力してください")
+	@NotBlank
 	private String servName;		//サービス名//
 	
 	@NotNull
