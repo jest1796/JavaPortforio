@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="katachi.spring.execise.repository.SubscMapper">
+	<!-- 作業一覧取得 -->
+
+	<select id="getSubscs" resultType="Subsc">
+		SELECT
+			id,			<!-- サービスID -->
+			subscs.user_id,		<!--ユーザID -->
+			serv_name,	<!--サービス名 -->
+			fee,				<!--料金// -->
+			pay_interval AS pay,	<!--月払いなら１，年払いなら２ -->
+			debit_month AS month,	<!--支払い月　月額制ならNULL -->
+			debit_day AS day,		<!--支払日 -->
+			update_date_time AS registDay,
+		<!--次回引き落としまでの日数計算 -->
+		CASE
+		<!-- //月額制// -->
+			WHEN subscs.pay_interval = 1 THEN
+		CASE
+			WHEN MONTH(CURDATE()) = 12 THEN
+			DATEDIFF(
+			DATE(CONCAT(YEAR(CURDATE()) + 1, '-01-', subscs.debit_day)),
+			CURDATE()
+		)
+		ELSE
+		CASE
+			WHEN DAY(CURDATE()) &lt; subscs.debit_day THEN
+		CASE
+			WHEN subscs.debit_day &gt; DAY(LAST_DAY(CONCAT(YEAR(CURDATE()), '-',
+			MONTH(CURDATE()), '-01'))) THEN
+			DATEDIFF(
+			LAST_DAY(CONCAT(YEAR(CURDATE()), '-', MONTH(CURDATE()), '-01')),
+			CURDATE()
+		)
+		ELSE
+			DATEDIFF(
+			DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(CURDATE()), '-', subscs.debit_day)),
+			CURDATE()
+		)
+		END
+		ELSE
+
+		DATEDIFF(
+		DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(CURDATE()) + 1, '-', subscs.debit_day)),
+		CURDATE()
+		)
+		END
+		END
+		<!-- //年額制// -->
+			WHEN subscs.pay_interval = 2 THEN
+		CASE
+			WHEN MONTH(CURDATE()) &lt; subscs.debit_month OR (MONTH(CURDATE()) =
+			subscs.debit_month AND DAY(CURDATE()) &lt;=
+			subscs.debit_day) THEN
+			DATEDIFF(
+			DATE(CONCAT(YEAR(CURDATE()), '-', subscs.debit_month, '-', subscs.debit_day)),
+			CURDATE()
+		)
+		ELSE
+			DATEDIFF(
+			DATE(CONCAT(YEAR(CURDATE()) + 1, '-', subscs.debit_month, '-', subscs.debit_day)),
+			CURDATE()
+		)
+		END
+		ELSE
+			null
+		END AS untilDays	<!--次回引き落としまでの日数 -->
+		FROM subscs
+
+		left join users
+		on subscs.user_id = users.user_id
+		WHERE users.user_id= #{userId}
+		;
+	</select>
+	
+
+	<!--サービス項目の登録 -->
+	<insert id="registSubsc">
+		insert into subscs(
+			user_id,
+			serv_name,
+			fee,
+			pay_interval,
+			debit_month,
+			debit_day)
+
+		values(
+			#{userId},
+			#{servName},
+			#{fee},
+			#{pay},
+			#{month},
+			#{day}
+		)
+		;
+	</insert>
+
+	<!--編集・削除項目の取得 -->
+<!--	使用者のデータしか取れないようにする-->
+	<select id="findSubsc">
+		select
+			id,
+			user_id,		<!--ユーザID -->
+			serv_name,	<!--サービス名 -->
+			fee,				<!--料金// -->
+			pay_interval AS pay,	<!--月払いなら１，年払いなら２ -->
+			debit_month AS month,	<!--支払い月　月額制ならNULL -->
+			debit_day AS day 		<!--支払日 -->
+		from subscs
+		where
+			id=#{id}
+			and
+			user_id=#{userId}
+		;
+	</select>
+
+<!--	項目編集の実行-->
+	<update id="updateSubsc">
+		update
+			subscs 
+		set 
+			serv_name=#{servName},
+			fee=#{fee},
+			pay_interval=#{pay},
+			debit_month=#{month},
+			debit_day=#{day}
+		where
+			id=#{id}
+		;
+	</update>
+
+	<!--サービス項目の削除実行 -->
+	<delete id="deleteSubsc">
+		delete from
+			subscs
+		where
+			id = #{id}
+		;
+	</delete>
+
+</mapper>
+

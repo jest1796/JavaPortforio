@@ -39,42 +39,42 @@
 		
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
-				<form th:action="@{/delete}" method="post" th:object="${subscData}">
-					<!--						IDをsubscDataに入れる-->
-					<input type="hidden" name="id" th:value="${data.getId}">
-					<!--					ユーザIDをSubscDataに入れる-->
+				<form th:action="@{/delete}" method="post" th:object="${subscForm}">
+					<!--						IDをsubscFormに入れる-->
+					<input type="hidden" name="id" th:value="${form.getId}">
+					<!--					ユーザIDをSubscFormに入れる-->
 					<input type="hidden" name="userId" th:value="${user.getUserId()}">
-
+					
 					<div class="mt-2 row h5">
 						<p>サービス名：　　　</p>
-						<p th:text="${data.getServName}"></p>
-						<input type="hidden" name="servName" th:value="${data.getServName}">
+						<p th:text="${form.getServName}"></p>
+						<input type="hidden" name="servName" th:value="${form.getServName}">
 					</div>
 
 					<div class="pt-5 h5 row">
 						<label for="pay">料金体系：　　　</label>
 						<p>年額　</p>
-						<p th:text="${data.getFee +'　円'}"></p>
-						<input type="hidden" name="fee" th:value="${data.getFee}">
-						<input type="hidden" name="pay" th:value="${data.getPay}">
+						<p th:text="${form.getFee +'　円'}"></p>
+						<input type="hidden" name="fee" th:value="${form.getFee}">
+						<input type="hidden" name="pay" th:value="${form.getPay}">
 					</div>
 
 					<div class="pt-5 h5 row">
 						<label>支払日：　　　　</label>
 
-						<div th:if="${data.getMonth} == 0">
+						<div th:if="${form.getMonth} == 0">
 							<p>毎月　</p>
 						</div>
 
-						<div th:unless="${data.getMonth} == 0" class="row mr-1">
+						<div th:unless="${form.getMonth} == 0" class="row mr-1">
 							<p>毎年　</p>
-							<p th:text="${data.getMonth}"></p>
+							<p th:text="${form.getMonth}"></p>
 							<p>　月　</p>
 						</div>
 
-						<p th:text="${data.getDay}"></p>
-						<input type="hidden" name="month" th:value="${data.getMonth}">
-						<input type="hidden" name="day" th:value="${data.getDay}">
+						<p th:text="${form.getDay}"></p>
+						<input type="hidden" name="month" th:value="${form.getMonth}">
+						<input type="hidden" name="day" th:value="${form.getDay}">
 						<p>　日　</p>
 					</div>
 

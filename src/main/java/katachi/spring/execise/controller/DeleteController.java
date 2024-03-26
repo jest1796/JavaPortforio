@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import katachi.spring.execise.domain.model.Item;
-import katachi.spring.execise.domain.service.ItemService;
+import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
-import katachi.spring.execise.form.SubscData;
+import katachi.spring.execise.form.SubscForm;
 
 @Controller
 public class DeleteController {
 
 	@Autowired
-	ItemService itemService;
+	SubscService subscService;
 
 	@Autowired
 	UserService userService;
@@ -32,28 +32,28 @@ public class DeleteController {
 	//	削除画面表示
 	@GetMapping("/delete/{id}")
 	public String getDelete(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscData data, @PathVariable("id") Integer id) {
+			@ModelAttribute SubscForm form, @PathVariable("id") Integer id) {
 		//ログインユーザ情報収納
 		model.addAttribute("user", user);
 
 		//削除確認画面のデータをDBから取得
-		Item editItem = itemService.findOne(id);
+		Subsc editItem = subscService.findOne(id,user.getUserId());
 
-		//editItemをSubscDataクラスに変換
-		data = modelMapper.map(editItem, SubscData.class);
+		//editItemをSubscFormクラスに変換
+		form = modelMapper.map(editItem, SubscForm.class);
 
 		//予定情報収納
-		model.addAttribute("data", data);
+		model.addAttribute("form", form);
 		return "delete";
 
 	}
 
 	//	項目削除実行
 	@PostMapping("/delete")
-	public String postDelete(Model model,
-			@ModelAttribute SubscData data) {
-		System.out.println(data);
-		itemService.deleteItem(data.getId());
+	public String postDelete(@AuthenticationPrincipal LoginUserDetails user,Model model,
+			@ModelAttribute SubscForm form) {
+	
+		subscService.deleteSubsc(form.getId(), user.getUserId());
 		return "redirect:index";
 
 	}

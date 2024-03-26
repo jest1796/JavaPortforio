@@ -39,7 +39,10 @@
 		<!-- 入力フォーム -->
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
-				<form th:action="@{/addService}" method="post" th:object="${subscData}">
+				<form th:action="@{/addService}" method="post" th:object="${subscForm}">
+
+
+<!--サービス名が５０文字以上の場合、バリデーションチェックでエラー表記-->
 
 					<label for="item_name">サービス名</label>
 					<input type="text" class="form-control" name="servName" id="servName" th:errorclass="is-invalid">
@@ -48,7 +51,7 @@
 					<div class="input-group pt-5">
 						<label for="pay">料金体系　　</label>
 						<label>
-							<input type="radio" value="1" th:field="*{pay}" th:checked="${subscData.getPay==1}" />月額　
+							<input type="radio" value="1" th:field="*{pay}" th:checked="${subscForm.getPay==1}" />月額　
 						</label>
 
 						<label>

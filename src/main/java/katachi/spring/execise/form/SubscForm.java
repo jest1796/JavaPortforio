@@ -7,15 +7,17 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class SubscData {
+public class SubscForm {
 
 	private Integer id;			//	予定項目のID番号//
 	private int userId;			//ユーザID//
 	
 	@NotBlank
+	@Size(max=50, message = "長すぎます")
 	private String servName;		//サービス名//
 	
 	@NotNull
@@ -34,8 +36,6 @@ public class SubscData {
 	@Min(1)
 	@Max(31)
 	private int day;				//支払日//
-	
-	private int untilDays;			//次回引き落としまでの日数//
-	
+	private int untilDays;			//次の支払日までの日数//
 	private Date registDay;		//登録日//
 }

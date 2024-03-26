@@ -6,7 +6,7 @@
 
 <!--ユーザ登録-->
 <insert id="signup">
-	insert into users_table(
+	insert into users(
 		user_name
 	   ,password
 	   )
@@ -20,7 +20,7 @@
 <!--ユーザ検索-->
 <select id="findLoginUser" resultType="MUser">
 	select *
-		from users_table
+		from users
 		where
 		user_name = #{userName}
 		;

@@ -32,7 +32,7 @@
 				以下の内容で登録します
 			</div>
 		</div>
-		<p th:text="${user.getUserId()}"></p>
+		
 		<!-- 入力フォーム -->
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
@@ -51,7 +51,14 @@
 
 					<div class="pt-5 h5 row">
 						<label for="pay">料金体系：　　　</label>
-						<p>年額　</p>
+						<div th:if="${inputData.getMonth} == 0">
+							<p>月額　</p>
+						</div>
+
+						<div th:if="${inputData.getMonth} != 0">
+							<p>年額　</p>
+						</div>
+						
 						<p th:text="${inputData.getFee +'　円'}"></p>
 						<input type="hidden" name="fee" th:value="${inputData.getFee}">
 						<input type="hidden" name="pay" th:value="${inputData.getPay}">

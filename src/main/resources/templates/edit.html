@@ -39,10 +39,9 @@
 		<!-- 入力フォーム -->
 		<div class="row my-2 justify-content-center">
 			<div class="col-sm-6">
-				<form th:action="@{/edit}" method="post" th:object="${data}">
-
-					<label for="item_name">サービス名</label>
+				<form th:action="@{/edit}" method="post" th:object="${form}">
 					
+					<label for="item_name">サービス名</label>
 					<input type="hidden"  th:field="*{id}">
 					
 					<input type="text" class="form-control" th:field="*{servName}" th:errorclass="is-invalid">
@@ -68,22 +67,25 @@
 						
 					</div>
 					
+					
+<!--					空欄、０の場合のエラーメッセージ表記を出す-->
+					
 					<div class="pt-5 h5 row">
 						<label>現在の支払日：　　　　</label>
 
-						<div th:if="${data.getMonth} == 0">
+						<div th:if="${form.getMonth} == 0">
 							<p>毎月　</p>
 						</div>
 						
-						<div th:unless="${data.getMonth} == 0" class="row mr-1">
+						<div th:unless="${form.getMonth} == 0" class="row mr-1">
 							<p>毎年　</p>
-							<p th:text="${data.getMonth}"></p>
+							<p th:text="${form.getMonth}"></p>
 							<p>　月　</p>
 						</div>
 						
-						<p th:text="${data.getDay}"></p>
-						<input type="hidden" name="month" th:value="${data.getMonth}">
-						<input type="hidden" name="day" th:value="${data.getDay}">
+						<p th:text="${form.getDay}"></p>
+						<input type="hidden" name="month" th:value="${form.getMonth}">
+						<input type="hidden" name="day" th:value="${form.getDay}">
 						<p>　日　</p>
 
 					</div>

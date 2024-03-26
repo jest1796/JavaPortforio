@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
-import katachi.spring.execise.domain.model.Item;
-import katachi.spring.execise.domain.service.ItemService;
+import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
-import katachi.spring.execise.form.SubscData;
+import katachi.spring.execise.form.SubscForm;
 
 @Controller
 public class ConfirmController {
@@ -23,7 +23,7 @@ public class ConfirmController {
 	private HttpSession session;
 	
 	@Autowired
-	ItemService itemService;
+	SubscService subscService;
 
 	@Autowired
 	UserService userService;
@@ -31,13 +31,17 @@ public class ConfirmController {
 	@Autowired
 	ModelMapper modelMapper;
 	
+	
 //	登録内容確認画面表示
 	@GetMapping("/confirm")
 	public String getConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscData data) {
+			@ModelAttribute SubscForm form) {
+		if(form==null) {
+			return "redrect:index";
+		}
 		
 		model.addAttribute("user", user);
-		SubscData inputData = (SubscData) session.getAttribute("data");
+		SubscForm inputData = (SubscForm) session.getAttribute("form");
 		model.addAttribute("inputData",inputData);
 		
 		return "confirm";
@@ -47,14 +51,14 @@ public class ConfirmController {
 //	登録内容DBに書き込み実行
 	@PostMapping("/confirm")
 	public String postConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscData data,Item item) {
+			@ModelAttribute SubscForm form,Subsc subsc) {
 		model.addAttribute("user", user);
 		
-//		SubscDataクラスをItem型に変換
-		item = modelMapper.map(data, Item.class);
+//		SubscFormクラスをSubsc型に変換
+		subsc = modelMapper.map(form, Subsc.class);
 		
 //		DBに項目変更を実行
-		itemService.registItem(item);
+		subscService.registSubsc(subsc);
 			
 		return "redirect:index";
 			
@@ -64,10 +68,10 @@ public class ConfirmController {
 //	編集内容の確認画面表示
 	@GetMapping("/editConfirm")
 	public String getEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscData data) {
+			@ModelAttribute SubscForm form) {
 		
 		model.addAttribute("user", user);
-		SubscData inputData = (SubscData) session.getAttribute("data");
+		SubscForm inputData = (SubscForm) session.getAttribute("form");
 		model.addAttribute("inputData",inputData);
 		
 		return "editConfirm";
@@ -77,14 +81,14 @@ public class ConfirmController {
 //	編集後の内容をDBに書き込み実行
 	@PostMapping("/editConfirm")
 	public String postEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscData data,Item item) {
+			@ModelAttribute SubscForm form,Subsc subsc) {
 		model.addAttribute("user", user);
-		System.out.println("POST "+data);
-//		SubscDataクラスをItem型に変換
-		item = modelMapper.map(data, Item.class);
+		
+//		SubscFormクラスをSubsc型に変換
+		subsc = modelMapper.map(form, Subsc.class);
 		
 //		DBに項目変更を実行
-		itemService.updateItem(item);
+		subscService.updateSubsc(subsc);
 			
 		return "redirect:index";
 			

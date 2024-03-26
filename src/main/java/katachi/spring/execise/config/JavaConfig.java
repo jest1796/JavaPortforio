@@ -12,4 +12,9 @@ public class JavaConfig {
 		return new ModelMapper();
 		
 	}
+	
+//	@Bean
+//	public isValidDate isValidDate() {
+//		return new isValidDate();
+//	}
 }

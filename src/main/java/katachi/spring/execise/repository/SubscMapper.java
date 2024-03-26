@@ -4,29 +4,29 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import katachi.spring.execise.domain.model.Item;
+import katachi.spring.execise.domain.model.Subsc;
 
 @Mapper
-public interface ItemMapper {
+public interface SubscMapper {
 
 //	項目一覧取得
-	public List<Item> getItem(int userId);
+	public List<Subsc> getSubscs(int userId);
 	
 //	引落日までの日数更新
 	public void updateUntilDays(int userId);
 	
 //	項目の登録
-	public int registItem(Item item);
+	public int registSubsc(Subsc subsc);
 	
 	
 //	訂正・削除項目の取得
-	public Item findItem(int id);
+	public Subsc findSubsc(int id,int userId);
 	
 //	項目の訂正
-	public void updateItem(Item item);
+	public void updateSubsc(Subsc subsc);
 	
 //	項目の削除
-	public void deleteItem(int id);
+	public void deleteSubsc(int id,int userId);
 
 	
 }

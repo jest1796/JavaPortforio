@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
-import katachi.spring.execise.form.SubscData;
+import katachi.spring.execise.form.SubscForm;
 
 @Controller
 public class AddServiceController {
@@ -20,10 +20,10 @@ public class AddServiceController {
 //	サービス追加画面表示
 	@GetMapping("/addService")
 	public String getAddService(@AuthenticationPrincipal LoginUserDetails user,Model model,
-			@ModelAttribute SubscData data) {
+			@ModelAttribute SubscForm form) {
 //		ログインユーザのデータ登録
 		model.addAttribute("user", user);
-		data.setPay(1);
+		form.setPay(1);
 	 
 	    return "addService";
 		
@@ -35,17 +35,16 @@ public class AddServiceController {
 //	サービス名と月・年払いの選択、料金の入力
 	@PostMapping("/addService")
 	public String postAddService(@AuthenticationPrincipal LoginUserDetails user,Model model,
-			 @Validated SubscData data,BindingResult bindingResult) {
+			 @Validated SubscForm form,BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println(data);
-		return getAddService(user, model, data);
+		return getAddService(user, model, form);
 		}
 
-		session.setAttribute("data", data);
+		session.setAttribute("form", form);
 		
 //		年払いの場合
-		if(data.getPay()==2) {
+		if(form.getPay()==2) {
 			return "redirect:payYear";
 		}
 		

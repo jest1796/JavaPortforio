@@ -48,7 +48,7 @@
 
 				<div class="form-group">
 					<label for="password">パスワード</label>
-					<input type="text" th:field="*{password}" class="form-control" placeholder="4～16文字の半角英数字で入力してください"
+					<input type="password" th:field="*{password}" class="form-control" placeholder="4～16文字の半角英数字で入力してください"
 						th:errorclass="is-invalid" />
 
 					<div class="invalid-feedback" th:errors="*{password}"></div>
