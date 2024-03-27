@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.model.Subscs;
 import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.repository.SubscMapper;
 
@@ -17,7 +17,7 @@ public class SubscServiceImpl implements SubscService {
 	
 //	一覧画面取得
 	@Override
-	public List<Subsc> getSubscs(int userId) {
+	public List<Subscs> getSubscs(int userId) {
 		
 		return subscMapper.getSubscs(userId);
 	}
@@ -25,21 +25,21 @@ public class SubscServiceImpl implements SubscService {
 	
 //	サービス項目を登録
 	@Override
-	public int registSubsc(Subsc subsc) {
+	public int registSubsc(Subscs subsc) {
 		
 		return subscMapper.registSubsc(subsc);
 	}
 	
 //	編集・削除項目の取得
 	@Override
-	public Subsc findOne(int id,int userId) {
+	public Subscs findOne(int id,int userId) {
 		
 		return subscMapper.findSubsc(id, userId);
 	}
 	
 //	サービス項目の訂正
 	@Override
-	public void updateSubsc(Subsc subsc) {
+	public void updateSubsc(Subscs subsc) {
 		subscMapper.updateSubsc(subsc);
 	}
 	

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.model.Subscs;
 import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
@@ -36,8 +36,8 @@ public class DeleteController {
 		//ログインユーザ情報収納
 		model.addAttribute("user", user);
 
-		//削除確認画面のデータをDBから取得
-		Subsc editItem = subscService.findOne(id,user.getUserId());
+		//削除確認画面のデータをDBから取得　他のユーザデータにアクセスできないようにuser_idも検索条件に入れる
+		Subscs editItem = subscService.findOne(id,user.getUserId());
 
 		//editItemをSubscFormクラスに変換
 		form = modelMapper.map(editItem, SubscForm.class);

@@ -41,6 +41,7 @@ public class AddServiceController {
 		return getAddService(user, model, form);
 		}
 
+//		入力内容を保持する
 		session.setAttribute("form", form);
 		
 //		年払いの場合

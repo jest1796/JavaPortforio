@@ -6,11 +6,10 @@ import java.util.Date;
 
 import lombok.Data;
 @Data
-public class MUser {
+public class Users {
 	private int userId;
 	private String userName;
 	private String password;
 	private Date create_date_time;
-	private Date update_date_time;
 
 }

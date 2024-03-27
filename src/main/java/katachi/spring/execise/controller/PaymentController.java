@@ -52,7 +52,7 @@ public class PaymentController {
 	boolean dateError = false; //月日判定のフラグ
 	
 	@Autowired
-	private isValidDate dateValidator;
+	private isValidDate dateValidator; //月日の正誤判定クラス
 	
 	//	年払いの月日入力画面表示
 	@GetMapping("/payYear")
@@ -94,6 +94,5 @@ public class PaymentController {
 
 	}
 	
-//	入力された月日の正誤判定
 	 
 }

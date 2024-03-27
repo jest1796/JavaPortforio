@@ -5,7 +5,7 @@
 <mapper namespace="katachi.spring.execise.repository.SubscMapper">
 	<!-- 作業一覧取得 -->
 
-	<select id="getSubscs" resultType="Subsc">
+	<select id="getSubscs" resultType="Subscs">
 		SELECT
 			id,			<!-- サービスID -->
 			subscs.user_id,		<!--ユーザID -->

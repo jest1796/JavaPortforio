@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import katachi.spring.execise.domain.model.MUser;
+import katachi.spring.execise.domain.model.Users;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.form.GroupOrder;
 import katachi.spring.execise.form.SignupForm;
@@ -43,7 +43,7 @@ public class SignupController {
 		
 		log.info(form.toString());
 	
-		MUser loginUser = modelMapper.map(form, MUser.class);
+		Users loginUser = modelMapper.map(form, Users.class);
 		
 		try {
 		userService.signup(loginUser);

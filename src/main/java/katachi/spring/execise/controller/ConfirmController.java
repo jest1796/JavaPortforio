@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
-import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.model.Subscs;
 import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
@@ -36,11 +36,9 @@ public class ConfirmController {
 	@GetMapping("/confirm")
 	public String getConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form) {
-		if(form==null) {
-			return "redrect:index";
-		}
 		
 		model.addAttribute("user", user);
+		
 		SubscForm inputData = (SubscForm) session.getAttribute("form");
 		model.addAttribute("inputData",inputData);
 		
@@ -51,11 +49,11 @@ public class ConfirmController {
 //	登録内容DBに書き込み実行
 	@PostMapping("/confirm")
 	public String postConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscForm form,Subsc subsc) {
+			@ModelAttribute SubscForm form,Subscs subsc) {
 		model.addAttribute("user", user);
 		
-//		SubscFormクラスをSubsc型に変換
-		subsc = modelMapper.map(form, Subsc.class);
+//		formをSubsc型に変換
+		subsc = modelMapper.map(form, Subscs.class);
 		
 //		DBに項目変更を実行
 		subscService.registSubsc(subsc);
@@ -81,11 +79,11 @@ public class ConfirmController {
 //	編集後の内容をDBに書き込み実行
 	@PostMapping("/editConfirm")
 	public String postEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
-			@ModelAttribute SubscForm form,Subsc subsc) {
+			@ModelAttribute SubscForm form,Subscs subsc) {
 		model.addAttribute("user", user);
 		
 //		SubscFormクラスをSubsc型に変換
-		subsc = modelMapper.map(form, Subsc.class);
+		subsc = modelMapper.map(form, Subscs.class);
 		
 //		DBに項目変更を実行
 		subscService.updateSubsc(subsc);

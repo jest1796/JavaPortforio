@@ -1,13 +1,13 @@
 package katachi.spring.execise.domain.service;
 
-import katachi.spring.execise.domain.model.MUser;
+import katachi.spring.execise.domain.model.Users;
 
 public interface UserService {
 //	ユーザ登録
-	public void signup(MUser loginUser);
+	public void signup(Users loginUser);
 
 //	ログインユーザ取得
-	public MUser getLoginUser(String userName);
+	public Users getLoginUser(String userName);
 
 	
 }

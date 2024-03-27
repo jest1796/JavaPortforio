@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import katachi.spring.execise.domain.model.MUser;
+import katachi.spring.execise.domain.model.Users;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.repository.UserMapper;
 
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
 	//	ユーザ登録
 	@Override
-	public void signup(MUser loginUser) {
+	public void signup(Users loginUser) {
 
 		//		パスワード暗号化
 		String rawPassword = loginUser.getPassword();
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 	//	ログインユーザ情報取得
 	@Override
-	public MUser getLoginUser(String userName) {
+	public Users getLoginUser(String userName) {
 
 		return mapper.findLoginUser(userName);
 	}

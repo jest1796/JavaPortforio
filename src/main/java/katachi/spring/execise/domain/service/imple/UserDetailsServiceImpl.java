@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import katachi.spring.execise.domain.model.MUser;
+import katachi.spring.execise.domain.model.Users;
 import katachi.spring.execise.domain.service.UserService;
 
 @Service
@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
 		// ユーザ情報取得
-		MUser loginUser = service.getLoginUser(userName);
+		Users loginUser = service.getLoginUser(userName);
 
 		//ユーザが存在しない場合
 		if (loginUser == null) {

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
-import katachi.spring.execise.domain.model.Subsc;
+import katachi.spring.execise.domain.model.Subscs;
 import katachi.spring.execise.domain.service.SubscService;
 import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
@@ -34,12 +34,12 @@ public class IndexController {
 		model.addAttribute("user", user);
 		
 //		利用サービス一覧情報取得
-		List<Subsc> subscs = subscService.getSubscs(user.getUserId());
+		List<Subscs> subscs = subscService.getSubscs(user.getUserId());
 		
 //		一覧表データ登録
 		model.addAttribute("subscs", subscs);
 		
-//		セッションの情報を削除しておく
+//		セッションの情報を削除しておく（検索窓から前回作業途中の/confirmなどに飛べないように）
 		session.removeAttribute("form");
 		
 		

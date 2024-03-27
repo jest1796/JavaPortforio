@@ -5,13 +5,13 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import katachi.spring.execise.domain.model.MUser;
+import katachi.spring.execise.domain.model.Users;
 
 public class LoginUserDetails implements UserDetails {
 
-	private MUser loginUser;
+	private Users loginUser;
 	
-	public LoginUserDetails(MUser loginUser) {
+	public LoginUserDetails(Users loginUser) {
 		this.loginUser = loginUser;
 	}
 //	ユーザIDの項目を追加
