@@ -41,12 +41,9 @@
 			<div class="col-sm-6">
 				<form th:action="@{/addService}" method="post" th:object="${subscForm}">
 
-
-<!--サービス名が５０文字以上の場合、バリデーションチェックでエラー表記-->
-
 					<label for="item_name">サービス名</label>
-					<input type="text" class="form-control" name="servName" id="servName" th:errorclass="is-invalid"
-					 th:value="*{servName}">
+					<input type="text" class="form-control" name="servName" id="servName" th:errorclass="is-invalid">
+<!--					 th:value="*{servName}">-->
 					<div class="invalid-feedback" th:errors="*{servName}"></div>
 
 					<div class="input-group pt-5">
@@ -59,8 +56,8 @@
 							<input type="radio" value="2" th:field="*{pay}">年額　
 						</label>
 
-						<input type="number" class="form-control" id="fee" name="fee" aria-describedby="basic-addon2" oninput="convertToHalfWidth(this)"
-							th:value="*{fee}"  th:errorclass="is-invalid">
+						<input type="number" class="form-control" th:field="*{fee}" aria-describedby="basic-addon2" oninput="convertToHalfWidth(this)"
+							  th:errorclass="is-invalid">
 						
 						<div class="input-group-append">
 							<span class="input-group-text">円</span>

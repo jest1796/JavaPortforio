@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		//ユーザが存在しない場合
 		if (loginUser == null) {
-			System.out.println("なし");
 			throw new UsernameNotFoundException("user not found");
 		}
 		

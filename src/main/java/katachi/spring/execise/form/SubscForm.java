@@ -16,13 +16,13 @@ public class SubscForm {
 	private Integer id;			//	予定項目のID番号//
 	private int userId;			//ユーザID//
 	
-	@NotBlank
+	@NotBlank(message="サービス名を入力してください")
 	@Size(max=50, message = "長すぎます")
 	private String servName;		//サービス名//
 	
 	@NotNull
 	@Digits(fraction = 0, integer = 10)
-	@Min(1)
+	@Min(value = 1,message = "　　　　　　　　　　　　　　　　　数値を入力してください")
 	private int fee;				//料金//
 	
 	private int pay;				//支払い間隔　月額なら１，年額なら２//

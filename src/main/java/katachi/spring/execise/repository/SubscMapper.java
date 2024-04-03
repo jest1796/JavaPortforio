@@ -12,12 +12,8 @@ public interface SubscMapper {
 //	項目一覧取得
 	public List<Subscs> getSubscs(int userId);
 	
-//	引落日までの日数更新
-	public void updateUntilDays(int userId);
-	
 //	項目の登録
 	public int registSubsc(Subscs subsc);
-	
 	
 //	訂正・削除項目の取得
 	public Subscs findSubsc(int id,int userId);

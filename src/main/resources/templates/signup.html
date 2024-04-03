@@ -36,14 +36,14 @@
 					<label for="userName">ユーザ名</label>
 					<input type="text" class="form-control" th:field="*{userName}" th:errorclass="is-invalid" />
 					<div class="invalid-feedback" th:errors="*{userName}"></div>
+					
 					<div th:if="${signupError}">
-
-
 						<div class="text-danger">
 							<p th:text="${signupError}"></p>
 							<small>他のユーザ名でお試しください</small>
 						</div>
 					</div>
+					
 				</div>
 
 				<div class="form-group">
