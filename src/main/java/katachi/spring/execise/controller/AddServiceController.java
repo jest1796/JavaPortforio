@@ -26,6 +26,7 @@ public class AddServiceController {
 		form.setPay(1);
 	 
 	    return "addService";
+	    
 		
 	}
 	
