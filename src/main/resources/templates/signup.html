@@ -27,7 +27,7 @@
 	<div class="container text-center">
 		<div class="col-sm-3"></div>
 
-		<form id="signup-form" method="post" action="/signup" class="form-signup  mx-auto mt-5" style="width: 35%"
+		<form id="signup-form" method="post" th:action="@{/signup}" class="form-signup  mx-auto mt-5" style="width: 35%"
 			th:object="${signupForm}">
 			<div class="container text-center">
 				<div class="col-sm-3"></div>
@@ -70,4 +70,4 @@
 	</form>
 </body>
 
-</html>
+</html>[]

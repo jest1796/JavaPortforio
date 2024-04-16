@@ -26,13 +26,13 @@ public class SignupController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-//	ユーザ登録画面表示
+	/*ユーザ登録画面表示*/
 	@GetMapping("/signup")
-	public String getSignup( @ModelAttribute SignupForm form) {
+	public String getSignup(@ModelAttribute SignupForm form) {
 		return "signup";
 	}
 	
-//	ユーザ登録実行
+	/*ユーザ登録実行*/
 	@PostMapping("/signup") 
 	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form,
 			BindingResult bindingResult,Model model){
