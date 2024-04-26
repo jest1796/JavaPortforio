@@ -38,10 +38,10 @@
 			<div class="col-sm-6">
 				<form th:action="@{/confirm}" method="post" th:object="${subscData}">
 					
-<!--					ユーザIDをSubscDataに入れる-->
+						<!--ユーザIDをSubscDataに入れる-->
 						<input type="hidden" name="userId" th:value="${user.getUserId()}">
 						
-<!--						idをinputDataに入れる-->
+						<!--idをinputDataに入れる-->
 						<input type="hidden" name="id" th:value="${inputData.getId()}">
 					<div class="mt-2 row h5">
 						<p>サービス名：　　　</p>

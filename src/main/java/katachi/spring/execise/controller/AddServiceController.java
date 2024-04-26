@@ -17,7 +17,10 @@ import katachi.spring.execise.form.SubscForm;
 @Controller
 public class AddServiceController {
 	
-//	サービス追加画面表示
+	@Autowired
+    private HttpSession session;
+
+	//	サービス追加画面表示
 	@GetMapping("/addService")
 	public String getAddService(@AuthenticationPrincipal LoginUserDetails user,Model model,
 			@ModelAttribute SubscForm form) {
@@ -26,12 +29,8 @@ public class AddServiceController {
 		form.setPay(1);
 	 
 	    return "addService";
-	    
-		
 	}
 	
-	@Autowired
-    private HttpSession session;
 	
 //	サービス名と月・年払いの選択、料金の入力
 	@PostMapping("/addService")

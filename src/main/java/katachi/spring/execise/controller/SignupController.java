@@ -47,7 +47,7 @@ public class SignupController {
 		
 		try {
 		userService.signup(loginUser);
-		}catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			 model.addAttribute("signupError", "ユーザー登録に失敗しました");
 	            return "signup";
 		}

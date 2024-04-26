@@ -47,11 +47,8 @@ public class SecurityConfig {
 
         http.headers(headers -> headers
                 .frameOptions(FrameOptionsConfig::disable));
-        
-//        http.csrf().disable();
 
         return http.build();
     }
-    
-
+   
 }

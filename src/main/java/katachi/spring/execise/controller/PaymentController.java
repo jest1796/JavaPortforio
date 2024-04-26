@@ -34,6 +34,7 @@ public class PaymentController {
 		return "payMonth";
 
 	}
+	
 //	日にち処理
 	@PostMapping("/payMonth")
 	public String postPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
