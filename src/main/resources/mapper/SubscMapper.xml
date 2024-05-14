@@ -20,7 +20,9 @@
 		<!-- //月額制// -->
 			WHEN subscs.pay_interval = 1 THEN
 		CASE
-			WHEN MONTH(CURDATE()) = 12 THEN
+		<!--現在が12月で次回支払いが来年1月の場合-->
+			WHEN MONTH(CURDATE()) = 12 and DAY(CURDATE()) &gt; subscs.debit_day 
+			THEN
 			DATEDIFF(
 			DATE(CONCAT(YEAR(CURDATE()) + 1, '-01-', subscs.debit_day)),
 			CURDATE()
