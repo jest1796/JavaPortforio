@@ -7,9 +7,9 @@ import katachi.spring.execise.domain.model.Users;
 @Mapper
 public interface UserMapper {
 	
-//	ユーザ登録
+	//ユーザ登録
 	public int signup(Users user) ;
 	
-//	ログインユーザ取得
+	//ログインユーザ取得
 	public Users findLoginUser(String loginUser); 
 }

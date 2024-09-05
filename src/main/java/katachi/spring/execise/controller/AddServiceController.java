@@ -14,17 +14,26 @@ import jakarta.servlet.http.HttpSession;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
 import katachi.spring.execise.form.SubscForm;
 
+/**
+ * サービス追加画面コントローラ
+ */
 @Controller
 public class AddServiceController {
 	
 	@Autowired
     private HttpSession session;
 
-	//	サービス追加画面表示
+	/**
+	 * サービス追加画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/addService")
 	public String getAddService(@AuthenticationPrincipal LoginUserDetails user,Model model,
 			@ModelAttribute SubscForm form) {
-//		ログインユーザのデータ登録
+		//ログインユーザのデータ登録
 		model.addAttribute("user", user);
 		form.setPay(1);
 	 
@@ -32,7 +41,14 @@ public class AddServiceController {
 	}
 	
 	
-//	サービス名と月・年払いの選択、料金の入力
+	/**
+	 * サービス名と月・年払いの選択、料金の入力
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @return 画面名
+	 */
 	@PostMapping("/addService")
 	public String postAddService(@AuthenticationPrincipal LoginUserDetails user,Model model,
 			 @Validated SubscForm form,BindingResult bindingResult) {
@@ -41,15 +57,15 @@ public class AddServiceController {
 		return getAddService(user, model, form);
 		}
 
-//		入力内容を保持する
+		//入力内容を保持する
 		session.setAttribute("form", form);
 		
-//		年払いの場合
+		//年払いの場合
 		if(form.getPay()==2) {
 			return "redirect:payYear";
 		}
 		
-//		月払いの場合
+		//月払いの場合
 		return "redirect:payMonth";
 		
 	}

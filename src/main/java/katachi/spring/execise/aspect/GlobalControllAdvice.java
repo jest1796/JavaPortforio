@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalControllAdvice {
 
 	
-	//例外処理//
+	
+	/**例外処理
+	 * @param e
+	 * @param model
+	 * @return エラー表示
+	 */
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e, Model model) {
 	

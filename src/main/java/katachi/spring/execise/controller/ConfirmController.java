@@ -16,6 +16,9 @@ import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
 import katachi.spring.execise.form.SubscForm;
 
+/**
+ * 登録画面コントローラ
+ */
 @Controller
 public class ConfirmController {
 
@@ -32,7 +35,13 @@ public class ConfirmController {
 	ModelMapper modelMapper;
 	
 	
-//	登録内容確認画面表示
+	/**
+	 * 登録内容確認画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/confirm")
 	public String getConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form) {
@@ -46,16 +55,23 @@ public class ConfirmController {
 		
 	}
 	
-//	登録内容DBに書き込み実行
+	/**
+	 * 登録内容DBに書き込み実行
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param subsc
+	 * @return 画面名
+	 */
 	@PostMapping("/confirm")
 	public String postConfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form,Subscs subsc) {
 		model.addAttribute("user", user);
 		
-//		formをSubsc型に変換
+		//formをSubsc型に変換
 		subsc = modelMapper.map(form, Subscs.class);
 		
-//		DBに項目変更を実行
+		//DBに項目変更を実行
 		subscService.registSubsc(subsc);
 			
 		return "redirect:index";
@@ -63,7 +79,13 @@ public class ConfirmController {
 		
 	}
 	
-//	編集内容の確認画面表示
+	/**
+	 * 編集内容の確認画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/editConfirm")
 	public String getEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form) {
@@ -76,16 +98,23 @@ public class ConfirmController {
 		
 	}
 	
-//	編集後の内容をDBに書き込み実行
+	/**
+	 * 編集後の内容をDBに書き込み実行
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param subsc
+	 * @return 画面名
+	 */
 	@PostMapping("/editConfirm")
 	public String postEditconfirm(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form,Subscs subsc) {
 		model.addAttribute("user", user);
 		
-//		SubscFormクラスをSubsc型に変換
+		//SubscFormクラスをSubsc型に変換
 		subsc = modelMapper.map(form, Subscs.class);
 		
-//		DBに項目変更を実行
+		//DBに項目変更を実行
 		subscService.updateSubsc(subsc);
 			
 		return "redirect:index";

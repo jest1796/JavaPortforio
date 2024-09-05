@@ -9,12 +9,13 @@ import lombok.Data;
 @Data
 public class SignupForm {
 	
-//	ユーザー名
-	@NotBlank(groups = ValidGroup1.class)
+	//ユーザー名
+	@NotBlank()
 	private String userName;
 	
-//	パスワード
-	@NotBlank(groups = ValidGroup1.class)
+	//パスワード
+//	@NotBlank(groups = ValidGroup1.class)
+	@NotBlank
 	@Length(min = 4,max = 16,groups = ValidGroup2.class)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$",groups = ValidGroup2.class)
 	private String password;

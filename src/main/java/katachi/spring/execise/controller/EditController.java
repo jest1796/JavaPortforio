@@ -19,6 +19,9 @@ import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
 import katachi.spring.execise.form.SubscForm;
 
+/**
+ * 編集画面コントローラ
+ */
 @Controller
 public class EditController {
 
@@ -34,10 +37,18 @@ public class EditController {
 	@Autowired
     private HttpSession session;
 	
+	//月日の正誤判定
 	@Autowired
-	private isValidDate dateValidator;  //月日の正誤判定クラス
+	private isValidDate dateValidator;  
 
-	//	サービスと月・年払いの選択、料金の編集画面表示
+	/**
+	 * サービスと月・年払いの選択、料金の編集画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param id
+	 * @return 画面名
+	 */
 	@GetMapping("/edit/{id}")
 	public String getEdit(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form, @PathVariable("id") Integer id) {
@@ -60,7 +71,15 @@ public class EditController {
 
 	}
 	
-	//	サービスと月・年払いの選択、料金の編集実行
+	/**
+	 * サービスと月・年払いの選択、料金の編集実行
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @param id
+	 * @return 画面名
+	 */
 	@PostMapping("/edit")
 	public String postEdit(@AuthenticationPrincipal LoginUserDetails user,Model model,
 			 @Validated SubscForm form,BindingResult bindingResult, Integer id) {
@@ -71,18 +90,23 @@ public class EditController {
 		
 		session.setAttribute("form", form);
 		
-//		年払いの場合
+		//年払いの場合
 		if(form.getPay()==2) {
 			return "redirect:editPayYear";
 		}
 		
-//		月払いの場合
+		//月払いの場合
 		return "redirect:editPayMonth";
 		
 	}
-	
-	
-//	月払いの日にち編集入力画面表示
+
+	/**
+	 * 月払いの日にち編集入力画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/editPayMonth")
 	public String getPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form) {
@@ -95,7 +119,15 @@ public class EditController {
 		return "editPayMonth";
 	}
 	
-	//月払いの編集日にち処理
+	/**
+	 * 月払いの編集日にち処理
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @param dateError
+	 * @return 画面名
+	 */
 	@PostMapping("/editPayMonth")
 	public String postPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			 @Validated @ModelAttribute SubscForm form,BindingResult bindingResult,boolean dateError) {
@@ -110,17 +142,23 @@ public class EditController {
 		return "redirect:editConfirm";
 	}
 	
-	boolean dateError = false; //月日判定のフラグ
+	//月日判定のフラグ
+	boolean dateError = false; 
 	
-	
-	
-//	年払いの編集月日入力画面表示
+	/**
+	 * 年払いの編集月日入力画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param dateError
+	 * @return 画面名
+	 */
 	@GetMapping("/editPayYear")
 	public String getEditPayYear(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			SubscForm form,boolean dateError) {
 		model.addAttribute("user", user);
 		
-//		存在しない月日だった場合のメッセージ表示用
+		//存在しない月日だった場合のメッセージ表示用
 		model.addAttribute("dateError", dateError);
 
 		SubscForm inputData = (SubscForm) session.getAttribute("form");
@@ -128,7 +166,15 @@ public class EditController {
 		return "editPayYear";
 	}
 	
-//	年払いの編集入力処理処理
+	/**
+	 * 年払いの編集入力処理処理
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @param dateError
+	 * @return 画面名
+	 */
 	@PostMapping("/editPayYear")
 	public String postPayYear(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@Validated @ModelAttribute SubscForm form,BindingResult bindingResult,boolean dateError) {
@@ -137,7 +183,7 @@ public class EditController {
 		int month = form.getMonth();  //入力された月//
 		int day = form.getDay();	   //入力された日//
 		
-//		無効な月日だった場合
+		//無効な月日だった場合
 		if (!dateValidator.isValidDate(month, day)) {
 			dateError = true;	//trueを入れてgetEditPayYearに戻すことでエラーメッセージ表示させる
             return getEditPayYear(user, model, form,dateError);  

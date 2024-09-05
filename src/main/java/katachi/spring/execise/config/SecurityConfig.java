@@ -12,20 +12,34 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+/**
+ * セキュリティクラス
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	//パスワードエンコーダーのBean定義
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     
+ 
+    /**
+     * @param introspector
+     * @return　Mvcビルダー
+     */
     @Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
     
+    /**
+	 * WEBセキュリティ
+	 * セキュリティ対策が不要なリソースを適用外にする
+	 */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize

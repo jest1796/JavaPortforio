@@ -1,10 +1,11 @@
 package katachi.spring.execise.domain.model;
 
-
-//ログインユーザデータ用
 import java.util.Date;
 
 import lombok.Data;
+/**
+ * ログインユーザデータのModelクラス
+ */
 @Data
 public class Users {
 	private int userId;

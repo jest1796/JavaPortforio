@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JavaConfig {
 
+	/**
+	 * マッピング
+	 * @return Model
+	 */
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

@@ -16,6 +16,9 @@ import katachi.spring.execise.domain.service.UserService;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
 import katachi.spring.execise.form.SubscForm;
 
+/**
+ * 削除画面コントローラ
+ */
 @Controller
 public class DeleteController {
 
@@ -29,7 +32,14 @@ public class DeleteController {
 	ModelMapper modelMapper;
 
 
-	//	削除画面表示
+	/**
+	 * 削除画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param id
+	 * @return 画面名
+	 */
 	@GetMapping("/delete/{id}")
 	public String getDelete(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form, @PathVariable("id") Integer id) {
@@ -48,7 +58,13 @@ public class DeleteController {
 
 	}
 
-	//	項目削除実行
+	/**
+	 * 項目削除実行
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@PostMapping("/delete")
 	public String postDelete(@AuthenticationPrincipal LoginUserDetails user,Model model,
 			@ModelAttribute SubscForm form) {

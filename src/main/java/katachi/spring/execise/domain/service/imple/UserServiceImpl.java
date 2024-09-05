@@ -17,18 +17,18 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	//	ユーザ登録
+	//ユーザ登録
 	@Override
 	public void signup(Users loginUser) {
 
-		//		パスワード暗号化
+		//パスワード暗号化
 		String rawPassword = loginUser.getPassword();
 		loginUser.setPassword(encoder.encode(rawPassword));
 
 		mapper.signup(loginUser);
 	}
 
-	//	ログインユーザ情報取得
+	//ログインユーザ情報取得
 	@Override
 	public Users getLoginUser(String userName) {
 

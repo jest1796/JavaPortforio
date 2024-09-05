@@ -4,10 +4,13 @@ import java.sql.Date;
 
 import lombok.Data;
 
+/**
+ * 登録サブスク内容のModelクラス
+ */
 @Data
 public class Subscs {
 	
-	private Integer id;			//	予定項目のID番号//
+	private Integer id;			//予定項目のID番号//
 	private int userId;			//ユーザID//
 	private String servName;		//サービス名//
 	private int fee;				//料金//

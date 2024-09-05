@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpSession;
 import katachi.spring.execise.domain.service.imple.LoginUserDetails;
 import katachi.spring.execise.form.SubscForm;
 
+/**
+ * 支払い内容登録画面コントローラ
+ */
 @Controller
 @SessionAttributes("dateError") // セッション属性を指定
 
@@ -23,7 +26,13 @@ public class PaymentController {
 	@Autowired
 	private HttpSession session;
 
-	//	月払いの日にち入力画面表示
+	/**
+	 * 月払いの日にち入力画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/payMonth")
 	public String getPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@ModelAttribute SubscForm form) {
@@ -35,33 +44,49 @@ public class PaymentController {
 
 	}
 	
-//	日にち処理
+	/**
+	 * 日にち処理
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @return 画面名
+	 */
 	@PostMapping("/payMonth")
 	public String postPayMonth(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			 @Validated @ModelAttribute SubscForm form,BindingResult bindingResult) {
 		model.addAttribute("user", user);
 		
+		//入力エラー有の場合
 		if(bindingResult.hasErrors()) {
 		return getPayMonth(user, model, form);
 		}
 		
 		session.setAttribute("form", form);
 		return "redirect:confirm";
-
 	}
 
-	boolean dateError = false; //月日判定のフラグ
+	//月日判定のフラグ
+	boolean dateError = false; 
 	
+	//月日の正誤判定クラス
 	@Autowired
-	private isValidDate dateValidator; //月日の正誤判定クラス
-	
-	//	年払いの月日入力画面表示
+	private isValidDate dateValidator; 
+		
+	/**
+	 * 年払いの月日入力画面表示
+	 * @param user
+	 * @param model
+	 * @param form
+	 * @param dateError
+	 * @return 画面名
+	 */
 	@GetMapping("/payYear")
 	public String getPayYear(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			SubscForm form,boolean dateError) {
 		model.addAttribute("user", user);
 		
-//		存在しない月日だった場合のメッセージ表示用
+		//存在しない月日だった場合のメッセージ表示用
 		model.addAttribute("dateError", dateError);
 
 		SubscForm inputData = (SubscForm) session.getAttribute("form");
@@ -69,7 +94,7 @@ public class PaymentController {
 		return "payYear";
 	}
 	
-//	年払いの入力処理処理
+	//年払いの入力処理処理
 	@PostMapping("/payYear")
 	public String postPayYear(@AuthenticationPrincipal LoginUserDetails user, Model model,
 			@Validated @ModelAttribute SubscForm form,BindingResult bindingResult,boolean dateError) {
@@ -78,13 +103,15 @@ public class PaymentController {
 		int month = form.getMonth();  //入力された月//
 		int day = form.getDay();	   //入力された日//
 	
-//		入力された月日が存在するかどうかの判定
+		//入力された月日が存在するかどうかの判定
 		if (!dateValidator.isValidDate(month, day)) {
 			
-			dateError = true;	//trueを入れてgetPayYearに戻すことでエラーメッセージ表示させる
+			//trueを入れてgetPayYearに戻すことでエラーメッセージ表示させる
+			dateError = true;	
             return getPayYear(user, model, form,dateError);  
         }
 		
+		//入力エラー有の場合
 		if(bindingResult.hasErrors()) {
 			return getPayYear(user, model, form,dateError);
 		}

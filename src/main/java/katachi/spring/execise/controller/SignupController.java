@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import katachi.spring.execise.domain.model.Users;
 import katachi.spring.execise.domain.service.UserService;
-import katachi.spring.execise.form.GroupOrder;
 import katachi.spring.execise.form.SignupForm;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * ユーザ登録コントローラ
+ */
 @Controller
 @Slf4j
 public class SignupController {
@@ -26,17 +28,28 @@ public class SignupController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	/*ユーザ登録画面表示*/
+	/**
+	 * ユーザ登録画面表示
+	 * @param form
+	 * @return 画面名
+	 */
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute SignupForm form) {
 		return "signup";
 	}
 	
-	/*ユーザ登録実行*/
+	/**
+	 * ユーザ登録実行
+	 * @param form
+	 * @param bindingResult
+	 * @param model
+	 * @return 画面名
+	 */
 	@PostMapping("/signup") 
-	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form,
+	public String postSignup(@ModelAttribute @Validated SignupForm form,
 			BindingResult bindingResult,Model model){
 		
+		//入力エラー有の場合
 		if(bindingResult.hasErrors()) {
 			return getSignup(form);
 		}
